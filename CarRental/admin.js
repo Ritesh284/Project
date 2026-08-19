@@ -4,9 +4,10 @@
  * ==========================================================
  */
 
-const API_BASE = window.location.origin.includes('5500')
-    ? 'http://localhost:8080'
-    : '';
+// Production Backend URL (Render): https://project-zf1j.onrender.com
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? (window.location.port === '8080' ? '' : 'http://localhost:8080')
+    : 'https://project-zf1j.onrender.com';
 
 let adminCars = [];
 let adminBookings = [];
@@ -358,8 +359,10 @@ async function handleImageUpload(e) {
             body: formData
         });
         const data = await res.json();
-        if (data.fileName) {
-            document.getElementById('admin-car-image').value = data.fileName;
+        if (!res.ok) throw new Error(data.message || 'Image upload failed');
+        const imgPath = data.imageUrl || (data.fileName ? `/uploads/${data.fileName}` : '');
+        if (imgPath) {
+            document.getElementById('admin-car-image').value = imgPath;
             showToast('Image uploaded successfully!', 'success');
         }
     } catch (err) {
@@ -478,7 +481,9 @@ async function loadAdminUsers() {
 // ==========================================================
 function getCarImageSrc(img) {
     if (!img) return 'BMW.jpeg';
-    if (img.startsWith('http') || img.startsWith('/uploads/') || img.startsWith('uploads/')) return img;
+    if (img.startsWith('http')) return img;
+    if (img.startsWith('/uploads/')) return `${API_BASE}${img}`;
+    if (img.startsWith('uploads/')) return `${API_BASE}/${img}`;
     return img;
 }
 

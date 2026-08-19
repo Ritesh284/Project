@@ -9,6 +9,8 @@ const API_BASE = (window.location.hostname === 'localhost' || window.location.ho
     ? (window.location.port === '8080' ? '' : 'http://localhost:8080')
     : 'https://project-zf1j.onrender.com';
 
+console.log('[Car Rental Admin] Active API Base URL:', API_BASE);
+
 let adminCars = [];
 let adminBookings = [];
 let adminUsers = [];

@@ -3,7 +3,12 @@
  * Preserves 100% of original UI while connecting to Spring Boot REST APIs
  */
 
-const API_BASE = window.location.port === '8080' ? '' : 'http://localhost:8080';
+// Production Backend URL (Render): https://project-zf1j.onrender.com
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? (window.location.port === '8080' ? '' : 'http://localhost:8080')
+    : 'https://project-zf1j.onrender.com';
+
+console.log('[Car Rental] Active API Base URL:', API_BASE);
 
 // Global state
 let currentCars = [];
@@ -271,8 +276,8 @@ function renderCarCards(cars) {
 
     container.innerHTML = cars.map(car => {
         const monthlyRate = Math.round((car.pricePerDay || 1500) * 30);
-        const imgPath = (car.image && car.image.startsWith('/uploads/')) 
-            ? `${API_BASE}${car.image}` 
+        const imgPath = (car.image && (car.image.startsWith('/uploads/') || car.image.startsWith('uploads/'))) 
+            ? (car.image.startsWith('/') ? `${API_BASE}${car.image}` : `${API_BASE}/${car.image}`) 
             : (car.image || 'Defender1.jpeg');
 
         return `
@@ -421,8 +426,8 @@ function openBookingModal(carId) {
     document.getElementById('book-car-id').value = car.id;
 
     const summaryEl = document.getElementById('booking-car-summary');
-    const imgPath = (car.image && car.image.startsWith('/uploads/')) 
-        ? `${API_BASE}${car.image}` 
+    const imgPath = (car.image && (car.image.startsWith('/uploads/') || car.image.startsWith('uploads/'))) 
+        ? (car.image.startsWith('/') ? `${API_BASE}${car.image}` : `${API_BASE}/${car.image}`) 
         : (car.image || 'Defender1.jpeg');
 
     summaryEl.innerHTML = `
@@ -790,7 +795,7 @@ async function loadAdminCars() {
         const cars = await res.json();
 
         tbody.innerHTML = cars.map(c => {
-            const imgPath = (c.image && c.image.startsWith('/uploads/')) ? `${API_BASE}${c.image}` : (c.image || 'Defender1.jpeg');
+            const imgPath = (c.image && (c.image.startsWith('/uploads/') || c.image.startsWith('uploads/'))) ? (c.image.startsWith('/') ? `${API_BASE}${c.image}` : `${API_BASE}/${c.image}`) : (c.image || 'Defender1.jpeg');
             return `
                 <tr>
                     <td>#${c.id}</td>

@@ -19,8 +19,8 @@ A full-stack Car Rental Management System built with a **Spring Boot 3 (Java 25)
 
 | Role | Email ID | Mobile Number | Password |
 | :--- | :--- | :--- | :--- |
-| **ADMIN** | `waghritesh907@gmail.com` | `9022165093` | `Ritu@123` |
-| **USER** | `user@carrental.com` | `9876543211` | `User@123` |
+| **ADMIN** | `` | `` | `` |
+| **USER** | `` | `` | `` |
 
 ---
 

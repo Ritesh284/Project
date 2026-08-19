@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental - Admin Dashboard</title>
+    <!-- Boxicons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Admin Page Stylesheet -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="admin-toast-container"></div>
+
+    <!-- FULL VIEWPORT ADMIN LAYOUT -->
+    <div class="admin-app">
+        
+        <!-- 1. LEFT SIDEBAR NAVIGATION -->
+        <aside class="admin-sidebar" id="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="/admin" class="admin-logo">
+                    <i class='bx bxs-car'></i>
+                    <span>Car<strong>Rental</strong></span>
+                </a>
+                <button class="sidebar-close-btn" id="sidebar-close-btn" onclick="toggleSidebar()">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+
+            <div class="admin-profile-pill">
+                <div class="admin-avatar" id="admin-avatar">AD</div>
+                <div class="admin-profile-info">
+                    <strong id="admin-profile-name">System Admin</strong>
+                    <span class="badge-role">ADMINISTRATOR</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="menu-heading">MANAGEMENT</div>
+                <button class="sidebar-item active" onclick="switchAdminSection('tab-rides', this)">
+                    <i class='bx bxs-calendar-check'></i>
+                    <span>Ride Requests</span>
+                    <span class="menu-badge" id="badge-pending-rides">0</span>
+                </button>
+                <button class="sidebar-item" onclick="switchAdminSection('tab-cars', this)">
+                    <i class='bx bxs-car-garage'></i>
+                    <span>Fleet Management</span>
+                    <span class="menu-badge" id="badge-total-cars">0</span>
+                </button>
+                <button class="sidebar-item" onclick="switchAdminSection('tab-users', this)">
+                    <i class='bx bxs-user-detail'></i>
+                    <span>Registered Users</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom-actions">
+                <a href="/" class="back-website-btn">
+                    <i class='bx bx-left-arrow-alt'></i>
+                    <span>Back to Website</span>
+                </a>
+                <button class="logout-btn" onclick="handleAdminLogout()">
+                    <i class='bx bx-log-out'></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- SIDEBAR BACKDROP FOR MOBILE -->
+        <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
+
+        <!-- 2. MAIN CONTENT WRAPPER -->
+        <div class="admin-main">
+            
+            <!-- TOP HEADER -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="mobile-toggle" onclick="toggleSidebar()" title="Toggle Navigation">
+                        <i class='bx bx-menu'></i>
+                    </button>
+                    <div class="page-title">
+                        <h2>Admin <span>Control Panel</span></h2>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <a href="/" class="header-back-btn">
+                        <i class='bx bx-store'></i>
+                        <span>Back to Website</span>
+                    </a>
+                    <div class="header-admin-info">
+                        <div class="admin-avatar-sm" id="header-admin-avatar">AD</div>
+                        <span class="header-admin-name" id="header-admin-name">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- DASHBOARD BODY -->
+            <main class="admin-content">
+                
+                <!-- TOP 6 STATS KPI CARDS -->
+                <div class="admin-stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon icon-users"><i class='bx bxs-user'></i></div>
+                        <div class="stat-details">
+                            <h4>Total Users</h4>
+                            <div class="stat-val" id="stat-users">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon icon-cars"><i class='bx bxs-car'></i></div>
+                        <div class="stat-details">
+                            <h4>Total Fleet Cars</h4>
+                            <div class="stat-val" id="stat-cars">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon icon-pending"><i class='bx bx-time'></i></div>
+                        <div class="stat-details">
+                            <h4>Pending Requests</h4>
+                            <div class="stat-val text-warning" id="stat-pending">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon icon-accepted"><i class='bx bx-check-circle'></i></div>
+                        <div class="stat-details">
+                            <h4>Accepted Rides</h4>
+                            <div class="stat-val text-success" id="stat-accepted">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon icon-denied"><i class='bx bx-x-circle'></i></div>
+                        <div class="stat-details">
+                            <h4>Denied Rides</h4>
+                            <div class="stat-val text-danger" id="stat-denied">0</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon icon-revenue"><i class='bx bx-rupee'></i></div>
+                        <div class="stat-details">
+                            <h4>Total Revenue</h4>
+                            <div class="stat-val text-primary" id="stat-rev">₹0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 1: RIDE REQUESTS -->
+                <section id="tab-rides" class="admin-section active">
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="header-info">
+                                <h3>Ride Requests</h3>
+                                <p>Manage and process customer booking reservations.</p>
+                            </div>
+                            <button class="btn-refresh" onclick="loadAdminRides(); loadAdminStats();">
+                                <i class='bx bx-refresh'></i> Refresh
+                            </button>
+                        </div>
+
+                        <div class="data-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Customer</th>
+                                        <th>Contact</th>
+                                        <th>Car</th>
+                                        <th>Pickup Spot</th>
+                                        <th>Drop Spot</th>
+                                        <th>Dates</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-rides-tbody">
+                                    <tr><td colspan="10" class="text-center py-4">Loading ride requests...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: FLEET MANAGEMENT / ADD CAR DIRECTLY -->
+                <section id="tab-cars" class="admin-section">
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="header-info">
+                                <h3>Fleet Management</h3>
+                                <p>Manage cars, update availability, or directly add new vehicles.</p>
+                            </div>
+                            <button class="btn-primary" onclick="openAddCarForm()">
+                                <i class='bx bx-plus'></i> + Add New Car
+                            </button>
+                        </div>
+
+                        <!-- Add / Edit Car Form (Collapsible) -->
+                        <div id="admin-car-form-wrapper" class="admin-car-form-wrapper" style="display:none;">
+                            <h4 id="car-form-title">Add Car to Fleet</h4>
+                            <form id="admin-car-form" onsubmit="handleSaveCar(event)">
+                                <input type="hidden" id="admin-car-id">
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Brand (e.g. BMW, Mercedes, Toyota) *</label>
+                                        <input type="text" id="admin-car-brand" placeholder="BMW" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Car Name / Variant (e.g. X7 M-Sport) *</label>
+                                        <input type="text" id="admin-car-name" placeholder="X7 M-Sport" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-3">
+                                    <div class="form-group">
+                                        <label>Model / Year *</label>
+                                        <input type="text" id="admin-car-model" placeholder="2024" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Category *</label>
+                                        <select id="admin-car-category" required>
+                                            <option value="Luxury SUV">Luxury SUV</option>
+                                            <option value="SUV">SUV</option>
+                                            <option value="Sports Car">Sports Car</option>
+                                            <option value="Sports Sedan">Sports Sedan</option>
+                                            <option value="Premium Sedan">Premium Sedan</option>
+                                            <option value="Sedan">Sedan</option>
+                                            <option value="Compact Luxury">Compact Luxury</option>
+                                            <option value="Off-Road SUV">Off-Road SUV</option>
+                                            <option value="Hatchback">Hatchback</option>
+                                            <option value="Supercar">Supercar</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price per Day (₹) *</label>
+                                        <input type="number" id="admin-car-price" min="1" step="any" placeholder="1500" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-3">
+                                    <div class="form-group">
+                                        <label>Fuel Type *</label>
+                                        <select id="admin-car-fuel" required>
+                                            <option value="Petrol">Petrol</option>
+                                            <option value="Diesel">Diesel</option>
+                                            <option value="Electric">Electric</option>
+                                            <option value="Hybrid">Hybrid</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Transmission *</label>
+                                        <select id="admin-car-trans" required>
+                                            <option value="Automatic">Automatic</option>
+                                            <option value="Manual">Manual</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Seats Count *</label>
+                                        <input type="number" id="admin-car-seats" min="2" max="12" value="5" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Car Image (Upload File or Enter Existing Image Name)</label>
+                                    <div class="file-url-group">
+                                        <input type="file" id="admin-car-file" accept="image/*" onchange="handleImageUpload(event)">
+                                        <input type="text" id="admin-car-image" placeholder="Image filename (e.g. Defender1.jpeg)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea id="admin-car-desc" rows="2" placeholder="Vehicle features, condition, safety notes..."></textarea>
+                                </div>
+
+                                <div class="form-group checkbox-group">
+                                    <input type="checkbox" id="admin-car-avail" checked>
+                                    <label for="admin-car-avail">Available for booking</label>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary">Save Car</button>
+                                    <button type="button" class="btn-cancel" onclick="closeAddCarForm()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Cars Table -->
+                        <div class="data-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Brand & Name</th>
+                                        <th>Category</th>
+                                        <th>Price/Day</th>
+                                        <th>Specs</th>
+                                        <th>Available</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-cars-tbody">
+                                    <tr><td colspan="8" class="text-center py-4">Loading fleet cars...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: REGISTERED USERS -->
+                <section id="tab-users" class="admin-section">
+                    <div class="section-card">
+                        <div class="section-card-header">
+                            <div class="header-info">
+                                <h3>Registered Users</h3>
+                                <p>Directory of registered customer and admin accounts.</p>
+                            </div>
+                            <button class="btn-refresh" onclick="loadAdminUsers()">
+                                <i class='bx bx-refresh'></i> Refresh
+                            </button>
+                        </div>
+
+                        <div class="data-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile Number</th>
+                                        <th>Role</th>
+                                        <th>Member Since</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-users-tbody">
+                                    <tr><td colspan="6" class="text-center py-4">Loading users...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- REASON PROMPT MODAL FOR DENIAL -->
+    <div id="admin-deny-dialog" class="dialog-overlay hidden">
+        <div class="dialog-card">
+            <div class="dialog-header">
+                <h3>Deny Ride Request</h3>
+                <button class="dialog-close" onclick="closeDenyDialog()">&times;</button>
+            </div>
+            <form id="deny-form" onsubmit="submitDenial(event)">
+                <input type="hidden" id="deny-booking-id">
+                <div class="form-group">
+                    <label>Reason for Denial (Optional note for customer)</label>
+                    <textarea id="deny-reason" rows="3" placeholder="e.g. Vehicle undergoing maintenance, documentation required, etc."></textarea>
+                </div>
+                <div class="dialog-actions">
+                    <button type="button" class="btn-cancel" onclick="closeDenyDialog()">Cancel</button>
+                    <button type="submit" class="btn-deny">Confirm Denial</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Script -->
+    <script src="admin.js"></script>
+</body>
+</html>

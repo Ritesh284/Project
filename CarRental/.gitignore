@@ -1,0 +1,37 @@
+# ==========================================================
+# GIT IGNORE CONFIGURATION
+# ==========================================================
+
+# 1. Sensitive Environment Files (NEVER commit secrets to Git)
+.env
+*.env
+backend/.env
+.env.local
+.env.*.local
+
+# 2. Java & Maven Build Artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# 3. IDE & Editor Configs
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.settings/
+.project
+.classpath
+
+# 4. OS Specific Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 5. User Uploads (keep folder, ignore user-uploaded binaries if desired)
+backend/uploads/*
+!backend/uploads/.gitkeep

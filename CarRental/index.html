@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Car Rental Website</title>
+    <link rel="stylesheet" href="car.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <a href="#" class="logo"><img src="logo.png" alt="Car Rental Logo"></a>                   
+      <div class="bx bx-menu" id="menu-icon"></div>
+      
+      <ul class="navbar">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#ride">Ride</a></li>
+        <li><a href="#Services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+      </ul>
+      
+      <div class="header-btn" id="header-auth-buttons">
+        <a href="javascript:void(0)" class="sign-up" id="header-signup-btn">Sign Up</a>
+        <a href="javascript:void(0)" class="sign-in" id="header-signin-btn">Sign In</a>
+      </div>
+    </header>
+    
+    <!-- Home --> 
+    <section class="home" id="home">
+      <div class="text">
+        <h1><span>Looking</span> to <br> rent a car</h1>
+        <p>Our Vision is to give a new face to <b>The Car Industries.</b></p>
+        
+        <div class="app-stores">
+          <img src="appstore.png" alt="App Store">         
+          <img src="play store logo copy.png" alt="Play Store">  
+        </div>
+      </div>
+      
+      <div class="form-container">
+        <form id="hero-search-form" onsubmit="handleHeroSearch(event)">
+          <div class="input-box">
+            <span>Location</span>
+            <input type="search" id="hero-location-search" placeholder="Search Places (e.g. Mumbai, Pune, Goa)">
+          </div>  
+          <div class="input-box">
+            <span>Pick-Up Date</span>
+            <input type="date" id="hero-pickup-date">
+          </div>
+          <div class="input-box">
+            <span>Return Date</span>
+            <input type="date" id="hero-return-date">
+          </div>
+          <input type="submit" value="Search" class="btn">
+        </form>
+      </div>
+    </section>
+
+    <!-- Ride -->
+    <section class="ride" id="ride">
+      <div class="heading">
+        <span>How Its Work</span>
+        <h1>Rent with 3 Easy Steps </h1>
+      </div>
+      <div class="ride-container">
+        <div class="box">
+          <i class='bx bxs-map'></i>  
+          <h2>choose a location</h2>
+          <p>Plan Your Trip And Choose Your Location And Travel With Us Safely.</p>
+        </div>
+        <div class="box">
+          <i class='bx bxs-calendar-check'></i>
+          <h2>Pick-Up Date</h2>
+          <p>Fix Your Date And Contact With Us Quickly.</p>
+        </div>
+        <div class="box">
+          <i class='bx bxs-calendar-star'></i>
+          <h2>Book A Car</h2>
+          <p>Book Your Car And Get Exting Offers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services (Dynamic Dynamic Car Listing from MySQL GET /api/cars) -->
+    <section class="Services" id="Services">
+      <div class="heading">
+        <span>Best Services</span>
+        <h1>Explore Out Top Deals <br> From Top Rated Dealers</h1>
+      </div>
+
+      <div class="services-container" id="services-container">
+        <!-- Dynamically rendered via GET /api/cars -->
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+      <div class="heading">
+        <span>About Us</span>
+        <h1>Best Customer Experience</h1>
+      </div>
+      <div class="about container">
+        <div class="about-img">
+          <img src="jeep.png" alt="About Fleet">
+        </div>
+        <div class="about-text">
+          <span>About Us</span>
+          <ul>
+            <p>Shree Travels Started In The Year 2015 This Travel Offers Inter-city to Many distinations.
+            Car fleet includes Defender,Mercedes,BMW,Audi,Volvo,Supra,Lamborghini,Minicooper,Fortuner,Skoda,Mahindra Thar,Scorpio,Creta,Verna,Swift.</p>
+            <li>1. Shree Travels Cars are equipped with World's best safety features of our valuable customers.</li>
+            <li>2. Shree Travels drivers are professionally trained and certified by Volvo Group.</li>
+            <li>3. The staff can communicate with regional and English language.</li>
+          </ul>
+          <br> <a href="#Services" class="btn">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews" id="reviews">
+      <div class="heading">
+        <span>Reviews</span>
+        <h1>Whats Our Customer Say</h1>
+      </div>
+      <div class="reviews-container">
+        <div class="box">
+          <div class="rev-img">
+            <img src="people1.jpg" alt="Customer Reviewer">
+          </div>
+          <h2>Anil Sharma</h2>
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+          </div>
+          <p>The price is lower than any of their competitors. The car are always clean. They are spacious enough for our household, which is a family of 6.. I recommend them to everyone who plan car rent Trips in their future! They have Newer Cars, very clean( spotless ) and very comfortable. We had reserved mid-size car but got a great deal to upgrade SUV and it was worth it. Brand new Buick. We enjoyed the car we had....Thank you!</p>
+        </div>
+
+        <div class="box">
+          <div class="rev-img">
+            <img src="people3.jpeg" alt="Customer Reviewer">
+          </div>
+          <h2>Dipti Khurana</h2>
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star-half'></i>
+          </div>
+          <p>I booked a car for Mahabaleshwar trip from Reliable Car. Driver was very good and decent.
+            Car arrived on time. Car was spacious and good condition.
+            Overall it was a really good experience.</p>
+        </div>
+
+        <div class="box">
+          <div class="rev-img">
+            <img src="people5.jpg" alt="Customer Reviewer">
+          </div>
+          <h2>Samay Gupta</h2>
+          <div class="stars">
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bxs-star'></i>
+          </div>
+          <p>Experience was great traveling with this car service rental. The rates were affordable, driver was good, and the overall experience was also awesome.
+            I have used this car rental service more than twice and have found it always convenient.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+      <h2>Subscribe To Newsletter</h2>
+      <div class="box">
+        <input type="text" placeholder="Enter Your Email...">
+        <a href="javascript:void(0)" onclick="handleSubscribe(event)" class="btn">Subscribe</a>
+      </div>
+    </section>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>&#169; CapoolVenom All Right Reserved</p>
+      <div class="social">
+        <a href="#"><i class='bx bxl-facebook'></i></a>
+        <a href="#"><i class='bx bxl-twitter'></i></a>
+        <a href="#"><i class='bx bxl-instagram'></i></a>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         MODALS (Seamless Overlays styled with exact design tokens)
+         ======================================================== -->
+
+    <!-- 1. Sign In Modal -->
+    <div class="modal-overlay" id="signin-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>Sign <span>In</span></h2>
+          <button class="modal-close" onclick="closeModal('signin-modal')">&times;</button>
+        </div>
+        <form id="signin-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Email or Mobile Number</label>
+            <input type="text" id="login-identifier" placeholder="e.g. rahul@example.com or 9876543210" required>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="modal-submit-btn">Sign In</button>
+          <div class="modal-switch">
+            Don't have an account? <a onclick="switchModal('signin-modal', 'signup-modal')">Sign Up here</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 2. Sign Up Modal -->
+    <div class="modal-overlay" id="signup-modal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2>Create <span>Account</span></h2>
+          <button class="modal-close" onclick="closeModal('signup-modal')">&times;</button>
+        </div>
+        <form id="signup-form" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="reg-name" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label>Mobile Number (10-digit Indian)</label>
+            <input type="tel" id="reg-mobile" placeholder="e.g. 9876543210" pattern="[6-9][0-9]{9}" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="reg-email" placeholder="e.g. name@example.com" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="reg-password" placeholder="Min 6 chars" minlength="6" required>
+            </div>
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" id="reg-confirm-password" placeholder="Repeat password" minlength="6" required>
+            </div>
+          </div>
+          <button type="submit" class="modal-submit-btn">Sign Up</button>
+          <div class="modal-switch">
+            Already have an account? <a onclick="switchModal('signup-modal', 'signin-modal')">Sign In here</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 3. Ride Booking Modal (India-wide Location Selectors & Date Calculation) -->
+    <div class="modal-overlay" id="booking-modal">
+      <div class="modal-card wide">
+        <div class="modal-header">
+          <h2>Book <span>Your Ride</span></h2>
+          <button class="modal-close" onclick="closeModal('booking-modal')">&times;</button>
+        </div>
+        <div id="booking-car-summary" style="background:#eeeff1; padding:12px; border-radius:0.5rem; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
+          <!-- Car details filled dynamically -->
+        </div>
+        <form id="booking-form" onsubmit="handleBookingSubmit(event)">
+          <input type="hidden" id="book-car-id">
+          
+          <h4 style="font-size:0.95rem; color:#474fa0; margin-bottom:8px;">📍 Pickup Details (India)</h4>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label>Pickup State</label>
+              <select id="book-pickup-state" onchange="onPickupStateChange()" required>
+                <option value="">Select State</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Pickup City</label>
+              <select id="book-pickup-city" onchange="onPickupCityChange()" required>
+                <option value="">Select City</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Pickup Spot</label>
+              <select id="book-pickup-location" required>
+                <option value="">Select Spot</option>
+              </select>
+            </div>
+          </div>
+
+          <h4 style="font-size:0.95rem; color:#474fa0; margin-bottom:8px; margin-top:10px;">🎯 Drop Details (India)</h4>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label>Drop State</label>
+              <select id="book-drop-state" onchange="onDropStateChange()" required>
+                <option value="">Select State</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Drop City</label>
+              <select id="book-drop-city" onchange="onDropCityChange()" required>
+                <option value="">Select City</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Drop Spot</label>
+              <select id="book-drop-location" required>
+                <option value="">Select Spot</option>
+              </select>
+            </div>
+          </div>
+
+          <h4 style="font-size:0.95rem; color:#474fa0; margin-bottom:8px; margin-top:10px;">📅 Booking Dates & Estimate</h4>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Pick-Up Date</label>
+              <input type="date" id="book-pickup-date" onchange="calculateBookingPrice()" required>
+            </div>
+            <div class="form-group">
+              <label>Return Date</label>
+              <input type="date" id="book-return-date" onchange="calculateBookingPrice()" required>
+            </div>
+          </div>
+
+          <div id="booking-price-preview" style="background:#fff; border:2px dashed #fe5b3d; border-radius:0.5rem; padding:12px; margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <span style="font-size:0.9rem; color:#666;">Total Duration:</span> <strong id="calc-days" style="color:var(--text-color);">1 day(s)</strong>
+            </div>
+            <div>
+              <span style="font-size:0.9rem; color:#666;">Estimated Total:</span> <strong id="calc-total" style="font-size:1.3rem; color:var(--main-color);">₹0</strong>
+            </div>
+          </div>
+
+          <button type="submit" class="modal-submit-btn" id="submit-booking-btn">Confirm Booking</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 4. User My Bookings Modal -->
+    <div class="modal-overlay" id="my-bookings-modal">
+      <div class="modal-card wide">
+        <div class="modal-header">
+          <h2>My <span>Bookings</span></h2>
+          <button class="modal-close" onclick="closeModal('my-bookings-modal')">&times;</button>
+        </div>
+        <div id="my-bookings-list">
+          <!-- Bookings injected dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ScrollReveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!-- Custom Logic and Full-Stack REST API Integration -->
+    <script src="car.js"></script>
+  </body>
+</html>
